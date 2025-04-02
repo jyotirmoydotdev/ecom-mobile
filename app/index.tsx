@@ -1,30 +1,20 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
 import products from '../assets/products.json'
-import ProductListItem from '../components/ProductListitem'
+import ProductListItem from '@/components/ProductListItem'
+import { Button, ButtonText } from '@/components/ui/button'
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
+    <View >
       <FlatList
         data={products}
-        style={{ flex: 1, flexDirection:'row', gap: 5 }}
+        numColumns={2}
+        contentContainerClassName='gap-2'
+        columnWrapperClassName='gap-2'
+        className=' pt-2'
         renderItem={({ item}) => (<ProductListItem product={item} />)}
       />
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    paddingTop: 10
-  }
-})

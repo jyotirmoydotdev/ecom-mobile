@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
 import products from '../assets/products.json'
-import ProductListItem from '../components/ProductListItem'
+import ProductListItem from '../components/ProductListitem'
 
 export default function HomeScreen() {
   return (

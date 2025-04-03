@@ -12,15 +12,23 @@ import { Box } from '@/components/ui/box';
 import { Button, ButtonText } from '@/components/ui/button';
 import { useQuery } from '@tanstack/react-query';
 import { getProduct } from '@/api/products';
+import { useCart } from '@/store/cartStore';
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+
+  const addProduct = useCart((state:any) => state.addProduct);
+  // const cartItems = useCart((state:any) => state.items);
 
   const {data, isLoading, error} = useQuery({
     queryKey: ['product', id],
     queryFn: () => getProduct(id),
     enabled: !!id,
   })
+
+  const addToCart = () => {
+    addProduct(data)
+  }
 
   if (isLoading) {
     return <ActivityIndicator/>
@@ -53,7 +61,7 @@ export default function ProductDetailsScreen() {
         </Text>
       </VStack>
       <Box className="flex-col">
-        <Button className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1">
+        <Button onPress={addToCart} className="px-4 py-2 mr-0 mb-3 sm:mr-3 sm:mb-0 sm:flex-1">
           <ButtonText className=' rounded-lg' size="sm">Add to cart</ButtonText>
         </Button>
         <Button

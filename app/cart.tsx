@@ -6,12 +6,32 @@ import { HStack } from '@/components/ui/hstack';
 import { VStack } from '@/components/ui/vstack';
 import { Text } from '@/components/ui/text';
 import { Button, ButtonText } from '@/components/ui/button';
+import { useMutation } from '@tanstack/react-query';
+import { createOrder } from '@/api/orders';
 
 export default function cart() {
   const item = useCart((state:any) => state.items);
   const resetCart = useCart((state:any)=>state.resetCart);
+
+  const createOrderMutation = useMutation({
+    mutationFn: () => createOrder(
+      item.map((t)=>({
+        productId : t.product.id,
+        quantity: t.quantity,
+        price: t.product.price,
+      }))
+    ),
+    onSuccess: (data) => {
+      console.log('success')
+      console.log(data)
+      resetCart()
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+  })
   const onCheckout = async () => {
-    resetCart()
+    createOrderMutation.mutate();
   }
   if (item.length === 0) {
     return (

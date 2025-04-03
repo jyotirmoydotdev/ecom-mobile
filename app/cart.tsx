@@ -35,7 +35,7 @@ export default function cart() {
     )}
     ListFooterComponent={() => (
       <Box className='bg-white p-3'>
-        <Text className='text-lg font-semibold'>Total: {item.reduce((acc:any, curr:any) => acc + (curr.product.price * curr.quantity), 0)}</Text>
+        <Text className='text-xl py-4 font-semibold'>Total: ${item.reduce((acc:any, curr:any) => acc + (curr.product.price * curr.quantity), 0)}</Text>
         <Button onPress={onCheckout}>
           <ButtonText>Checkout</ButtonText>
         </Button>

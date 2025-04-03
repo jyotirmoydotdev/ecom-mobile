@@ -13,7 +13,7 @@ export async function listProducts() {
 }
 
 export async function getProduct(id: string) {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
     const res = await axios.get(`${API_URL}/products/${Number(id)}`);
     if (res.status !== 200) {
         throw new Error('Error: Failed to fetch products')
